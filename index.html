@@ -3,25 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://fonts.googleapis.com/css2?family=Satoshi:wght@400;700&display=swap" rel="stylesheet">
+    <title>Premium Multi-Theme Todo App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Satoshi:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
-        <H1>Todo App</H1>
-        <input id="taskInput" type="text">
-        <ul id="taskList">
-            <li>Example Task</li>
-            <li>Example Task</li>
-            <li>Example Task</li>
-        </ul>
-        <button id="addBtn">Add</button>
-        <button id="delBtn">Delete</button>
-        <button id="markCompleteBtn">Competed</button>
-        <button id="saveBtn">Save in this Device</button>
+
+    <div class="todo-container">
+        <h1>Todo App</h1>
+        
+        <div class="theme-wrapper">
+            <select id="themeSelect">
+                <option value="default">🌊 Ocean Blue (Default)</option>
+                <option value="dark-luxury">👑 Dark Luxury</option>
+                <option value="cyberpunk">👾 Cyberpunk Neon</option>
+                <option value="sakura">🌸 Sakura Blossom</option>
+            </select>
+        </div>
+
+        <input id="taskInput" type="text" placeholder="Add a new task...">
+        
+        <ul id="taskList"></ul>
+        
+        <div class="button-group">
+            <button id="addBtn">Add</button>
+            <button id="delBtn">Delete Last</button>
+            <button id="markCompleteBtn">Complete</button>
+            <button id="saveBtn" class="btn-save">Save Device</button>
+        </div>
     </div>
-    <!-- Script:JS -->
-     <script src="./script.js"></script>
+
+    <script src="./script.js"></script>
 </body>
 </html>

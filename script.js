@@ -1,65 +1,83 @@
+// DOM Element Extraction
 const addBtn = document.getElementById('addBtn');
 const deleteBtn = document.getElementById('delBtn');
 const completeBtn = document.getElementById('markCompleteBtn');
+const saveBtn = document.getElementById('saveBtn');
 const input = document.getElementById('taskInput');
 const taskList = document.getElementById('taskList');
+const themeSelect = document.getElementById('themeSelect');
 
-// New Element
-const saveBtn = document.getElementById('saveBtn');
+let selectedTask = null;
 
+// ================= 1. APPLICATION INIT (LOAD DATA) =================
+
+// Load Saved Tasks
 if (localStorage.getItem('myTodoList')) {
     taskList.innerHTML = localStorage.getItem('myTodoList');
 }
 
+// Load and Apply Saved Theme Configuration
+const cachedTheme = localStorage.getItem('myAppTheme') || 'default';
+document.documentElement.setAttribute('data-theme', cachedTheme);
+themeSelect.value = cachedTheme;
 
+// ================= 2. THEME CONTROLLER MANAGEMENT =================
+
+themeSelect.addEventListener('change', function(e) {
+    const activeTheme = e.target.value;
+    document.documentElement.setAttribute('data-theme', activeTheme);
+    localStorage.setItem('myAppTheme', activeTheme);
+});
+
+// ================= 3. TASK CONTROLLER CORE FUNCTIONS =================
+
+// Add New Task Action
 addBtn.addEventListener('click', function(){
     if(input.value.trim() !== "") {
-        taskList.innerHTML += `<li> ${input.value} </li>`;
+        taskList.innerHTML += `<li>${input.value.trim()}</li>`;
         input.value = "";
     }
 });
 
-
+// Remove Last Added Task Action (Undo)
 deleteBtn.addEventListener('click', function(){
     if(taskList.lastElementChild) {
         taskList.lastElementChild.remove();
+        selectedTask = null; // System safety cleanup
     }
 });
 
-    //Mark Completed
-
-    let selectedTask = null;
-
-    taskList.addEventListener('click', function(event) {
+// Task Selector Event Listener (Using Delegation)
+taskList.addEventListener('click', function(event) {
     if (event.target.tagName === 'LI') {
-        
-        // Remove 'selected' visual from the old task
+        // Toggle selection logic cleaner setup
         if (selectedTask) {
             selectedTask.classList.remove('selected');
         }
-        
-        // Save the new task and add the 'selected' visual
         selectedTask = event.target;
         selectedTask.classList.add('selected');
     }
 });
 
-    completeBtn.addEventListener('click', function() {
+// Toggle Task Complete Lifecycle Method
+completeBtn.addEventListener('click', function() {
     if (selectedTask) {
-        // Toggle the green background and line-through
         selectedTask.classList.toggle('done'); 
-        
-        // Remove the selection highlight since we are done with it
         selectedTask.classList.remove('selected');
-        selectedTask = null; 
+        selectedTask = null; // Clean active state tracking
     } else {
         alert("Please click on a task text first to select it!");
     }
 });
 
+// Sync Tasks Data to LocalStorage Container
 saveBtn.addEventListener('click', function() {
-    // Poori HTML list ko utha kar 'myTodoList' ke naam se device mein save kar do
-    localStorage.setItem('myTodoList', taskList.innerHTML);
+    // Save karne se pehle temporary configuration highlight clear karna zarori hai
+    if (selectedTask) {
+        selectedTask.classList.remove('selected');
+        selectedTask = null;
+    }
     
-    alert("Saare tasks device mein save ho gaye hain!");
+    localStorage.setItem('myTodoList', taskList.innerHTML);
+    alert("Tasks are saved on your device! 🎉");
 });
