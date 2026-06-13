@@ -1,4 +1,3 @@
-// DOM Element Extraction
 const addBtn = document.getElementById('addBtn');
 const deleteBtn = document.getElementById('delBtn');
 const completeBtn = document.getElementById('markCompleteBtn');
@@ -9,9 +8,6 @@ const themeSelect = document.getElementById('themeSelect');
 
 let selectedTask = null;
 
-// ================= 1. APPLICATION INIT (LOAD DATA) =================
-
-// Load Saved Tasks
 if (localStorage.getItem('myTodoList')) {
     taskList.innerHTML = localStorage.getItem('myTodoList');
 }
@@ -21,7 +17,6 @@ const cachedTheme = localStorage.getItem('myAppTheme') || 'default';
 document.documentElement.setAttribute('data-theme', cachedTheme);
 themeSelect.value = cachedTheme;
 
-// ================= 2. THEME CONTROLLER MANAGEMENT =================
 
 themeSelect.addEventListener('change', function(e) {
     const activeTheme = e.target.value;
@@ -29,7 +24,7 @@ themeSelect.addEventListener('change', function(e) {
     localStorage.setItem('myAppTheme', activeTheme);
 });
 
-// ================= 3. TASK CONTROLLER CORE FUNCTIONS =================
+
 
 // Add New Task Action
 addBtn.addEventListener('click', function(){
