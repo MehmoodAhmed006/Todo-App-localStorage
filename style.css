@@ -1,0 +1,233 @@
+:root {
+    --primary: #0c2d48;
+    --secondary: #1b9aaa;
+    --accent: #ffb703;
+    --surface: #ffffff;
+    --surface-soft: #eef6fb;
+    --text: #12232e;
+    --text-muted: #6b7c93;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Satoshi', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 55%, #8fd3f4 100%);
+    background-size: 200% 200%;
+    animation: bgShift 12s ease-in-out infinite;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: var(--text);
+}
+
+@keyframes bgShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+div {
+    background: var(--surface);
+    border-radius: 24px;
+    box-shadow: 0 24px 80px rgba(12, 45, 72, 0.18);
+    padding: 36px;
+    width: 100%;
+    max-width: 540px;
+    animation: fadeInUp 0.7s ease;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    font-size: clamp(2rem, 2.5vw, 3rem);
+    color: var(--primary);
+    margin-bottom: 28px;
+    text-align: center;
+    font-weight: 800;
+}
+
+#taskInput {
+    width: 100%;
+    padding: 16px 18px;
+    font-size: 1rem;
+    border: 2px solid rgba(27, 154, 170, 0.2);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: inherit;
+    background: var(--surface-soft);
+    color: var(--text);
+}
+
+#taskInput:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 6px rgba(27, 154, 170, 0.12);
+}
+
+#taskInput::placeholder {
+    color: var(--text-muted);
+}
+
+#taskList {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 22px 0;
+}
+
+#taskList li {
+    padding: 18px 20px;
+    background: var(--surface-soft);
+    margin-bottom: 14px;
+    border-radius: 18px;
+    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+    border-left: 5px solid var(--secondary);
+    word-break: break-word;
+    box-shadow: 0 8px 20px rgba(12, 45, 72, 0.04);
+}
+
+#taskList li:hover {
+    background: #edf7fb;
+    transform: translateX(6px);
+    box-shadow: 0 14px 28px rgba(12, 45, 72, 0.08);
+}
+
+.done {
+    text-decoration: line-through;
+    background: linear-gradient(135deg, #d9f4ff 0%, #c2ebf8 100%);
+    color: #4a5f6f;
+    border-left: 5px solid var(--accent);
+    opacity: 0.9;
+}
+
+.done:hover {
+    background: linear-gradient(135deg, #c1e9ff 0%, #ace3f4 100%);
+}
+
+.selected {
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    color: lightgrey;
+    border-left: 5px solid var(--primary);
+    box-shadow: 0 8px 24px rgba(27, 154, 170, 0.2);
+}
+
+.selected:hover {
+    transform: translateX(6px);
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+button {
+    flex: 1;
+    min-width: 120px;
+    padding: 14px 22px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    box-shadow: 0 8px 18px rgba(12, 45, 72, 0.1);
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+#addBtn {
+    background: var(--secondary);
+    color: white;
+}
+
+#addBtn:hover {
+    box-shadow: 0 12px 22px rgba(27, 154, 170, 0.3);
+}
+
+#addBtn:active {
+    transform: translateY(0);
+}
+
+#delBtn {
+    background: #f25f5c;
+    color: white;
+}
+
+#delBtn:hover {
+    background: #e94f50;
+    box-shadow: 0 12px 22px rgba(242, 95, 92, 0.3);
+}
+
+#delBtn:active {
+    transform: translateY(0);
+}
+
+#markCompleteBtn {
+    background: var(--accent);
+    color: var(--primary);
+}
+
+#markCompleteBtn:hover {
+    background: #ffcc47;
+    box-shadow: 0 12px 22px rgba(255, 183, 3, 0.3);
+}
+
+#markCompleteBtn:active {
+    transform: translateY(0);
+}
+
+button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+@media (max-width: 620px) {
+    body {
+        padding: 16px;
+    }
+
+    div {
+        padding: 28px 20px;
+        border-radius: 20px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    button {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 420px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    #taskInput {
+        padding: 14px 16px;
+    }
+
+    #taskList li {
+        padding: 16px 18px;
+    }
+}
