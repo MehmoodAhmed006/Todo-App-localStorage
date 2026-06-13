@@ -4,6 +4,13 @@ const completeBtn = document.getElementById('markCompleteBtn');
 const input = document.getElementById('taskInput');
 const taskList = document.getElementById('taskList');
 
+// New Element
+const saveBtn = document.getElementById('saveBtn');
+
+if (localStorage.getItem('myTodoList')) {
+    taskList.innerHTML = localStorage.getItem('myTodoList');
+}
+
 
 addBtn.addEventListener('click', function(){
     if(input.value.trim() !== "") {
@@ -48,4 +55,11 @@ deleteBtn.addEventListener('click', function(){
     } else {
         alert("Please click on a task text first to select it!");
     }
+});
+
+saveBtn.addEventListener('click', function() {
+    // Poori HTML list ko utha kar 'myTodoList' ke naam se device mein save kar do
+    localStorage.setItem('myTodoList', taskList.innerHTML);
+    
+    alert("Saare tasks device mein save ho gaye hain!");
 });
